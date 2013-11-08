@@ -5,26 +5,28 @@
 # Copyright 2011, Treasure Data, Inc.
 #
 
-group 'td-agent' do
-  group_name 'td-agent'
+td = node.default[:td_agent]
+
+group td[:group] do
+  group_name td[:group]
   gid        403
   action     [:create]
 end
 
-user 'td-agent' do
+user td[:user] do
   comment  'td-agent'
   uid      403
-  group    'td-agent'
-  home     '/var/run/td-agent'
+  group    td[:group]
+  home     td[:home]
   shell    '/bin/false'
   password nil
   supports :manage_home => true
   action   [:create, :manage]
 end
 
-directory '/etc/td-agent/' do
-  owner  'td-agent'
-  group  'td-agent'
+directory td[:directory] do
+  owner  td[:owner]
+  group  td[:group]
   mode   '0755'
   action :create
 end
@@ -32,7 +34,7 @@ end
 case node['platform']
 when "ubuntu"
   dist = node['lsb']['codename']
-  source = (dist == 'precise') ? "http://packages.treasure-data.com/precise/" : "http://packages.treasure-data.com/debian/"
+  source = (dist == 'precise') ? td[:package][:ubuntu] : td[:package][:debian]
   apt_repository "treasure-data" do
     uri source
     distribution dist
@@ -41,12 +43,12 @@ when "ubuntu"
   end
 when "centos", "redhat"
   yum_repository "treasure-data" do
-    url "http://packages.treasure-data.com/redhat/$basearch"
+    url td[:package][:rhel]
     action :add
   end
 end
 
-template "/etc/td-agent/td-agent.conf" do
+template td[:config] do
   mode "0644"
   source "td-agent.conf.erb"
 end
@@ -61,7 +63,7 @@ end
 
 service "td-agent" do
   action [ :enable, :start ]
-  subscribes :restart, resources(:template => "/etc/td-agent/td-agent.conf")
+  subscribes :restart, resources(:template => td[:config])
 end
 
 node[:td_agent][:plugins].each do |plugin|
