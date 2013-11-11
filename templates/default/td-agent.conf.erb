@@ -10,11 +10,11 @@
 # This section matches events whose tag is td.DATABASE.TABLE
 <match td.*.*>
   type tdlog
-  apikey <%= node['td_agent']['api_key'] %>
+  apikey <%= node.default['td_agent']['api_key'] %>
 
   auto_create_table
   buffer_type file
-  buffer_path /var/log/td-agent/buffer/td
+  buffer_path <%= "#{node.default['td_agent']['log_directory']}/buffer/td" %>
 </match>
 
 ## match tag=debug.** and dump to console
