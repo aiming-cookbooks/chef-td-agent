@@ -31,6 +31,20 @@ directory td[:directory] do
   action :create
 end
 
+directory "#{td[:directory]}out" do
+  owner  td[:owner]
+  group  td[:group]
+  mode   '0755'
+  action :create
+end
+
+directory "#{td[:directory]}input" do
+  owner  td[:owner]
+  group  td[:group]
+  mode   '0755'
+  action :create
+end
+
 case node['platform']
 when "ubuntu"
   dist = node['lsb']['codename']
@@ -45,6 +59,48 @@ when "centos", "redhat"
   yum_repository "treasure-data" do
     url td[:package][:rhel]
     action :add
+  end
+end
+
+if td[:template][:input][:forward]
+  template "#{td[:directory]}input/forward.conf" do
+    mode   0644
+    source "input/forward.conf.erb"
+  end
+end
+
+if td[:template][:input][:unix]
+  template "#{td[:directory]}input/unix.conf" do
+    mode   0644
+    source "input/unix.conf.erb"
+  end
+end
+
+if td[:template][:input][:http]
+  template "#{td[:directory]}input/http.conf" do
+    mode   0644
+    source "input/http.conf.erb"
+  end
+end
+
+if td[:template][:input][:debug_agent]
+  template "#{td[:directory]}input/debug-agent.conf" do
+    mode   0644
+    source "input/debug-agent.conf.erb"
+  end
+end
+
+if td[:template][:output][:tdlog]
+  template "#{td[:directory]}out/tdlog.conf" do
+    mode   0644
+    source "out/tdlog.conf.erb"
+  end
+end
+
+if td[:template][:output][:debug]
+  template "#{td[:directory]}out/debug.conf" do
+    mode   0644
+    source "out/debug.conf.erb"
   end
 end
 

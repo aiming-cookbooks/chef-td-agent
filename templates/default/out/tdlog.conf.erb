@@ -1,0 +1,14 @@
+# Treasure Data (http://www.treasure-data.com/) provides cloud based data
+# analytics platform, which easily stores and processes data from td-agent.
+# FREE plan is also provided.
+# @see http://docs.fluentd.org/articles/http-to-td
+#
+# This section matches events whose tag is td.DATABASE.TABLE
+<match td.*.*>
+  type tdlog
+  apikey <%= node.default['td_agent']['api_key'] %>
+
+  auto_create_table
+  buffer_type file
+  buffer_path <%= "#{node.default['td_agent']['log_directory']}/buffer/td" %>
+</match>

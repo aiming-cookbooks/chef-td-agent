@@ -2,54 +2,32 @@
 ## Output descriptions:
 ##
 
-# Treasure Data (http://www.treasure-data.com/) provides cloud based data
-# analytics platform, which easily stores and processes data from td-agent.
-# FREE plan is also provided.
-# @see http://docs.fluentd.org/articles/http-to-td
-#
-# This section matches events whose tag is td.DATABASE.TABLE
-<match td.*.*>
-  type tdlog
-  apikey <%= node.default['td_agent']['api_key'] %>
+<% td = node.default[:td_agent] %>
 
-  auto_create_table
-  buffer_type file
-  buffer_path <%= "#{node.default['td_agent']['log_directory']}/buffer/td" %>
-</match>
+<% if td[:template][:output][:tdlog] %>
+include out/tdlog.conf
+<% end %>
 
-## match tag=debug.** and dump to console
-<match debug.**>
-  type stdout
-</match>
+<% if td[:template][:output][:debug] %>
+include out/debug.conf
+<% end %>
 
 ####
 ## Source descriptions:
 ##
 
-## built-in TCP input
-## @see http://docs.fluentd.org/articles/in_forward
-<source>
-  type forward
-  port 24224
-</source>
+<% if td[:template][:input][:forward] %>
+include input/forward.conf
+<% end %>
 
-## built-in UNIX socket input
-#<source>
-#  type unix
-#</source>
+<% if td[:template][:input][:unix] %>
+include input/unix.conf
+<% end %>
 
-# HTTP input
-# POST http://localhost:8888/<tag>?json=<json>
-# POST http://localhost:8888/td.myapp.login?json={"user"%3A"me"}
-# @see http://docs.fluentd.org/articles/in_http
-<source>
-  type http
-  port 8888
-</source>
+<% if td[:template][:input][:http] %>
+include input/http.conf
+<% end %>
 
-## live debugging agent
-<source>
-  type debug_agent
-  bind 127.0.0.1
-  port 24230
-</source>
+<% if td[:template][:input][:debug_agent] %>
+include input/debug-agent.conf
+<% end %>
