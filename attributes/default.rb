@@ -3,6 +3,14 @@
 node.default[:td_agent][:api_key] = ''
 node.default[:td_agent][:plugins] = []
 
+# TD generate template
+node.default[:td_agent][:template][:input][:forward]     = true
+node.default[:td_agent][:template][:input][:unix]        = false
+node.default[:td_agent][:template][:input][:http]        = true
+node.default[:td_agent][:template][:input][:debug_agent] = true
+node.default[:td_agent][:template][:output][:tdlog]      = true
+node.default[:td_agent][:template][:output][:debug]      = true
+
 # TD environment settings
 node.default[:td_agent][:user]          = 'td-agent' 
 node.default[:td_agent][:home]          = '/var/run/td-agent'
