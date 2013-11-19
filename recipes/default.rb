@@ -119,6 +119,7 @@ end
 
 service "td-agent" do
   action [ :enable, :start ]
+  supports status: true, restart: true, reload: true
   subscribes :restart, resources(:template => td[:config])
 end
 
