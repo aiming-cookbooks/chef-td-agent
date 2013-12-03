@@ -42,10 +42,10 @@ class Chef
 
         def td_gem_binary_path
           if node['platform_family'] == "rhel" && node[:kernel][:machine] == "x86_64"
-            "/usr/lib64/fluent/ruby/bin/fluent-gem"
+            node.default[:td_agent][:fluent_gem][:rhel]
           else
             # Ubuntu/Debian works with /usr/lib
-            "/usr/lib/fluent/ruby/bin/fluent-gem"
+            node.default[:td_agent][:fluent_gem][:debian]
           end
         end
       end
