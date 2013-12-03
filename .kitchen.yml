@@ -14,3 +14,7 @@ suites:
     run_list:
       - td-agent::default
     attributes:
+
+busser:
+  sudo: true
+
