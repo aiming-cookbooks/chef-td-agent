@@ -24,3 +24,7 @@ node.default[:td_agent][:log_directory] = '/var/log/td-agent'
 node.default[:td_agent][:package][:ubuntu] = 'http://packages.treasure-data.com/precise/'
 node.default[:td_agent][:package][:debian] = 'http://packages.treasure-data.com/debian/'
 node.default[:td_agent][:package][:rhel]   = 'http://packages.treasure-data.com/redhat/$basearch'
+
+# fluent-gem path
+node.default[:td_agent][:fluent_gem][:rhel] = '/usr/lib64/fluent/ruby/bin/fluent-gem'
+node.default[:td_agent][:fluent_gem][:debian] = '/usr/lib/fluent/ruby/bin/fluent-gem'
