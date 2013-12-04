@@ -1,0 +1,13 @@
+{
+  "sources": {
+    "td-agent": {
+      "path": "."
+    },
+    "apt": {
+      "locked_version": "2.3.0"
+    },
+    "yum": {
+      "locked_version": "2.3.0"
+    }
+  }
+}
