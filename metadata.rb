@@ -6,6 +6,7 @@ description      "Installs/Configures td-agent"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 recipe           "td-agent", "td-agent configuration"
+recipe           "td-agent::specific_install", "install specific_install"
 
 %w{redhat centos debian ubuntu}.each do |os|
   supports os

@@ -138,3 +138,5 @@ node[:td_agent][:plugins].each do |plugin|
     end
   end
 end
+
+include_recipe "td-agent::specific_install"
