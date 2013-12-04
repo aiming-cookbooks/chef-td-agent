@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: td-agent
-# Recipe:: default
+# Recipe:: specific_install
 #
 # Copyright 2013, Aiming Inc.
 #

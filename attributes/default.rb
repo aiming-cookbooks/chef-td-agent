@@ -25,6 +25,9 @@ node.default[:td_agent][:package][:ubuntu] = 'http://packages.treasure-data.com/
 node.default[:td_agent][:package][:debian] = 'http://packages.treasure-data.com/debian/'
 node.default[:td_agent][:package][:rhel]   = 'http://packages.treasure-data.com/redhat/$basearch'
 
-# fluent-gem path
-node.default[:td_agent][:fluent_gem][:rhel] = '/usr/lib64/fluent/ruby/bin/fluent-gem'
-node.default[:td_agent][:fluent_gem][:debian] = '/usr/lib/fluent/ruby/bin/fluent-gem'
+# Add fluent ruby path into $PATH? (to /etc/profile)
+node.default[:td_agent][:ruby][:add_path] = true
+
+# fluent ruby path
+node.default[:td_agent][:ruby][:rhel] = '/usr/lib64/fluent/ruby/bin'
+node.default[:td_agent][:ruby][:debian] = '/usr/lib/fluent/ruby/bin'
