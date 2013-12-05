@@ -18,3 +18,9 @@ describe "td-agent daemon" do
     expect(service("td-agent")).to be_running
   end
 end
+
+describe file("/etc/profile.d/fluent_ruby_path.sh") do
+  it "exists file of /etc/profile.d/fluent_ruby_path.sh" do
+    should be_file
+  end
+end
