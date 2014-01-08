@@ -112,6 +112,7 @@ end
 package "td-agent" do
   options value_for_platform(
     ["ubuntu", "debian"] => {"default" => "-f --force-yes"},
+    ["centos", "redhat"] => {"default" => "--nogpgcheck"},
     "default" => nil
   )
   action :upgrade
