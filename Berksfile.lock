@@ -7,7 +7,7 @@
       "locked_version": "2.3.0"
     },
     "yum": {
-      "locked_version": "2.3.0"
+      "locked_version": "3.0.4"
     }
   }
 }
