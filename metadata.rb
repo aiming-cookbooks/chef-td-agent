@@ -4,7 +4,7 @@ maintainer_email "k@treasure-data.com"
 license          "All rights reserved"
 description      "Installs/Configures td-agent"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-version          "0.0.1"
+version          "0.0.7"
 recipe           "td-agent", "td-agent configuration"
 recipe           "td-agent::specific_install", "install specific_install"
 
